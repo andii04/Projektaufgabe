@@ -1,6 +1,3 @@
-import java.util.Collections;
-import java.util.Set;
-
 public class VisitorOne implements Visitor {
     int counter;
 
@@ -91,6 +88,7 @@ public class VisitorOne implements Visitor {
                 node.firstpos.addAll(subNode.firstpos);
                 //lastpos
                 node.lastpos.addAll(subNode.lastpos);
+                break;
 
             case"+":
                 //nullable
@@ -99,6 +97,7 @@ public class VisitorOne implements Visitor {
                 node.firstpos.addAll(subNode.firstpos);
                 //lastpos
                 node.lastpos.addAll(subNode.lastpos);
+                break;
 
             case"?":
                 //nullable
@@ -107,6 +106,11 @@ public class VisitorOne implements Visitor {
                 node.firstpos.addAll(subNode.firstpos);
                 //lastpos
                 node.lastpos.addAll(subNode.lastpos);
+                break;
+
+            default:
+                System.out.println("some unexpected things happened: " + node.getClass().toGenericString() + " " + node.operator);
+
         }
 
     }
