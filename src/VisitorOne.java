@@ -3,8 +3,6 @@ public class VisitorOne implements Visitor {
 
     @Override
     public void visit(OperandNode node) {
-
-
         //position
         node.position = counter;
 
@@ -34,11 +32,12 @@ public class VisitorOne implements Visitor {
         switch (node.operator)
         {
             case "|":
+                //nullable
                 node.nullable = leftNode.nullable || rightNode.nullable;
-
+                //firstpos
                 node.firstpos.addAll(leftNode.firstpos);
                 node.firstpos.addAll(rightNode.firstpos);
-
+                //lastpos
                 node.lastpos.addAll(leftNode.lastpos);
                 node.lastpos.addAll(rightNode.lastpos);
 
@@ -62,16 +61,15 @@ public class VisitorOne implements Visitor {
                 //Lastpos
 
                 if(rightNode.nullable) {
-
+                    node.lastpos.addAll(leftNode.lastpos);
+                    node.lastpos.addAll(rightNode.lastpos);
                 }
-
-                node.lastpos.addAll(leftNode.lastpos);
-                node.lastpos.addAll(rightNode.lastpos);
 
                 break;
 
             default:
                 System.out.println("some unexpected things happened: " + node.getClass().toGenericString() + " " + node.operator);
+                break;
         }
     }
 
