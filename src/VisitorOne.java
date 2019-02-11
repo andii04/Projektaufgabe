@@ -12,9 +12,11 @@ public class VisitorOne implements Visitor {
         node.position = counter;
 
                 //nullable
-                if(node.equals("ε"))
+                if(node.symbol.equals("ε"))
                 {
                     node.nullable = true;
+                    node.firstpos.clear();
+                    node.lastpos.clear();
                 }
                 else
                 {
@@ -29,11 +31,83 @@ public class VisitorOne implements Visitor {
     @Override
     public void visit(BinOpNode node) {
 
+        SyntaxNode leftNode = ((SyntaxNode) node.left);
+        SyntaxNode rightNode = ((SyntaxNode) node.right);
 
+        switch (node.operator)
+        {
+            case "|":
+                node.nullable = leftNode.nullable || rightNode.nullable;
+
+                node.firstpos.addAll(leftNode.firstpos);
+                node.firstpos.addAll(rightNode.firstpos);
+
+                node.lastpos.addAll(leftNode.lastpos);
+                node.lastpos.addAll(rightNode.lastpos);
+
+                break;
+
+            case "°":
+                //nullable
+                node.nullable = leftNode.nullable && rightNode.nullable;
+
+                //firstpos
+
+                if (leftNode.nullable){
+                    node.firstpos.addAll(leftNode.firstpos);
+                    node.firstpos.addAll(rightNode.firstpos);
+                }
+
+                else{
+                    node.firstpos.addAll(leftNode.firstpos);
+                }
+
+                //Lastpos
+
+                if(rightNode.nullable) {
+
+                }
+
+                node.lastpos.addAll(leftNode.lastpos);
+                node.lastpos.addAll(rightNode.lastpos);
+
+                break;
+
+            default:
+                System.out.println("some unexpected things happened: " + node.getClass().toGenericString() + " " + node.operator);
+        }
     }
 
     @Override
     public void visit(UnaryOpNode node) {
+        SyntaxNode subNode = ((SyntaxNode) node.subNode);
+
+        switch(node.operator)
+        {
+            case"*":
+                //nullable
+                node.nullable = true;
+                //firstpos
+                node.firstpos.addAll(subNode.firstpos);
+                //lastpos
+                node.lastpos.addAll(subNode.lastpos);
+
+            case"+":
+                //nullable
+                node.nullable = subNode.nullable;
+                //firstpos
+                node.firstpos.addAll(subNode.firstpos);
+                //lastpos
+                node.lastpos.addAll(subNode.lastpos);
+
+            case"?":
+                //nullable
+                node.nullable = true;
+                //firstpos
+                node.firstpos.addAll(subNode.firstpos);
+                //lastpos
+                node.lastpos.addAll(subNode.lastpos);
+        }
 
     }
 
