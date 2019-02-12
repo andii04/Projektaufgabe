@@ -1,9 +1,12 @@
 public class Application {
     public static void main(String[] args) {
-        //Visitable visitable=null;
-        //DepthFirstIterator.traverse(visitable,new VisitorOne());
-        //DepthFirstIterator.traverse(visitable,new VisitorTwo());
-        //Parser p = new Parser();
-        //p.go();
+        Parser p = new Parser();
+        Visitable visitable=p.go();
+        DepthFirstIterator.traverse(visitable,new VisitorOne());
+        DepthFirstIterator.traverse(visitable,new VisitorTwo());
+        System.out.println("fertig");
+
+        //https://stackoverflow.com/questions/26948724/create-syntax-tree-from-prograiven-regular-expressions-for-re-to-dfa
+
     }
 }
