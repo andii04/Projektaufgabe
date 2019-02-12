@@ -1,4 +1,6 @@
 public class VisitorOne implements Visitor {
+
+    //Declaration counter
     int counter;
 
     @Override
@@ -67,6 +69,7 @@ public class VisitorOne implements Visitor {
 
                 break;
 
+            //default case if something unexpected happens
             default:
                 System.out.println("some unexpected things happened: " + node.getClass().toGenericString() + " " + node.operator);
                 break;
@@ -106,6 +109,7 @@ public class VisitorOne implements Visitor {
                 node.lastpos.addAll(subNode.lastpos);
                 break;
 
+                //default case if something unexpected happens
             default:
                 System.out.println("some unexpected things happened: " + node.getClass().toGenericString() + " " + node.operator);
 
@@ -114,6 +118,7 @@ public class VisitorOne implements Visitor {
     }
 
     public VisitorOne() {
+        //Initalisation of counter
         counter = 0;
     }
 }
