@@ -7,5 +7,6 @@ public class Application {
         System.out.println("fertig");
 
         //https://stackoverflow.com/questions/26948724/create-syntax-tree-from-prograiven-regular-expressions-for-re-to-dfa
+
     }
 }
