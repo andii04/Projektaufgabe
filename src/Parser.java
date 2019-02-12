@@ -26,17 +26,17 @@ public class Parser {
     private Visitable regExp(Visitable p){
     char c = regularExpression.charAt(pos);
     if(c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z'|| c == '(' ){
-    return re(term(null));}
+    return rE(term(null));}
 
     return null;
 }
-    private Visitable re(Visitable p){
+    private Visitable rE(Visitable p){
     char c=regularExpression.charAt(pos);
     if(c==')'){pos++;
         return p;}
     else if(c == '|'){
         pos ++;
-            return re(new BinOpNode("|",p,term(null)));
+            return rE(new BinOpNode("|",p,term(null)));
     }
         return null;
 }
