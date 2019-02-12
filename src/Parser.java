@@ -1,32 +1,36 @@
 public class Parser {
 
-    private String regEx;
+    private String regularExpression= "(a*b*(a|b)abc)#";
     public int pos=0;
     public Visitable syntaxTree;
-    public Visitable go(){
-        regEx = "(a*b*(a|b)abc)#";
-        return start();
+    public void SetRegularExpression(String regularExpression){
+        this.regularExpression = regularExpression;
+    }
+    public Visitable GetTree(){
+        return syntaxTree;
     }
 
-private Visitable start(){
-    if(regEx== "#") return new OperandNode("#");
-    else if(regEx.charAt(0)=='('&& regEx.charAt(regEx.length()-1)=='#'&& regEx.charAt(regEx.length()-2)==')'){
+    public void Parse(){
+        syntaxTree = start();
+    }
+    private Visitable start(){
+    if(regularExpression== "#") return new OperandNode("#");
+    else if(regularExpression.charAt(0)=='('&& regularExpression.charAt(regularExpression.length()-1)=='#'&& regularExpression.charAt(regularExpression.length()-2)==')'){
     OperandNode leaf = new OperandNode("#");
-    System.out.println("starts");
     pos++;
     return new BinOpNode("°", regExp(null), leaf);
     }
         return null;
 }
-private Visitable regExp(Visitable p){
-    char c = regEx.charAt(pos);
+    private Visitable regExp(Visitable p){
+    char c = regularExpression.charAt(pos);
     if(c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z'|| c == '(' ){
     return rE(term(null));}
 
     return null;
 }
-private Visitable rE(Visitable p){
-    char c=regEx.charAt(pos);
+    private Visitable rE(Visitable p){
+    char c=regularExpression.charAt(pos);
     if(c==')'){pos++;
         return p;}
     else if(c == '|'){
@@ -35,8 +39,8 @@ private Visitable rE(Visitable p){
     }
         return null;
 }
-private Visitable term(Visitable p){
-    char c = regEx.charAt(pos);
+    private Visitable term(Visitable p){
+    char c = regularExpression.charAt(pos);
 
     if(c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z'|| c == '(' ){
         if (p != null)
@@ -54,16 +58,16 @@ private Visitable term(Visitable p){
     }
     return null;
 }
-private Visitable factor(Visitable p){
-    char c = regEx.charAt(pos);
+    private Visitable factor(Visitable p){
+    char c = regularExpression.charAt(pos);
     if(c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z'|| c == '(' ){
         return hop(elem(null));
     }
     return null;
 }
-private Visitable hop(Visitable p){
+    private Visitable hop(Visitable p){
 
-    char c = regEx.charAt(pos);
+    char c = regularExpression.charAt(pos);
     if(c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z'|| c == '('||c==')'|| c =='|' ){
         return p;
     }
@@ -71,8 +75,8 @@ private Visitable hop(Visitable p){
     return null;
 
 }
-private Visitable elem(Visitable p){
-    char c = regEx.charAt(pos);
+    private Visitable elem(Visitable p){
+    char c = regularExpression.charAt(pos);
     if(c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z'){
         return alphanum(null);
     }
@@ -80,8 +84,8 @@ private Visitable elem(Visitable p){
 
     return null;
 }
-private Visitable alphanum(Visitable p){
-    char c = regEx.charAt(pos);
+    private Visitable alphanum(Visitable p){
+    char c = regularExpression.charAt(pos);
     if (c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z') {pos++; return new OperandNode(Character.toString(c));}
     return null;
 }}
