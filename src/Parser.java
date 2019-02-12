@@ -84,8 +84,7 @@ private Visitable alphanum(Visitable p){
     char c = regEx.charAt(pos);
     if (c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z') {pos++; return new OperandNode(Character.toString(c));}
     return null;
-}
-}
+}}
 
 
 
