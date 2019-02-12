@@ -3,14 +3,15 @@ public class Parser {
     private String regularExpression= "(a*b*(a|b)abc)#";
     public int pos=0;
     public Visitable syntaxTree;
-    public void SetRegularExpression(String regularExpression){
+    
+    public void setRegularExpression(String regularExpression){
         this.regularExpression = regularExpression;
     }
-    public Visitable GetTree(){
+    public Visitable getTree(){
         return syntaxTree;
     }
 
-    public void Parse(){
+    public void parse(){
         syntaxTree = start();
     }
     private Visitable start(){
@@ -25,17 +26,17 @@ public class Parser {
     private Visitable regExp(Visitable p){
     char c = regularExpression.charAt(pos);
     if(c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z'|| c == '(' ){
-    return rE(term(null));}
+    return re(term(null));}
 
     return null;
 }
-    private Visitable rE(Visitable p){
+    private Visitable re(Visitable p){
     char c=regularExpression.charAt(pos);
     if(c==')'){pos++;
         return p;}
     else if(c == '|'){
         pos ++;
-            return rE(new BinOpNode("|",p,term(null)));
+            return re(new BinOpNode("|",p,term(null)));
     }
         return null;
 }

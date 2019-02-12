@@ -1,8 +1,8 @@
 public class Application {
     public static void main(String[] args) {
         Parser p = new Parser();
-        p.Parse();
-        Visitable visitable=p.GetTree();
+        p.parse();
+        Visitable visitable=p.getTree();
         DepthFirstIterator.traverse(visitable,new VisitorOne());
         DepthFirstIterator.traverse(visitable,new VisitorTwo());
         System.out.println("fertig");
