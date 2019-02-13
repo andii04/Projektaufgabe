@@ -4,14 +4,15 @@ public class Parser {
     private String regularExpression= "(a*b*(a|b)abc)#";
     public int pos=0;
     public Visitable syntaxTree;
-    public void SetRegularExpression(String regularExpression){
+    
+    public void setRegularExpression(String regularExpression){
         this.regularExpression = regularExpression;
     }
-    public Visitable GetTree(){
+    public Visitable getTree(){
         return syntaxTree;
     }
 
-    public void Parse(){
+    public void parse(){
         syntaxTree = start();
     }
     private Visitable start(){
