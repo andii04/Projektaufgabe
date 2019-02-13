@@ -1,5 +1,6 @@
 public class Parser {
 
+    //private String regularExpression= "((a|b)*abb)#"; Andi's Regexpr.
     private String regularExpression= "(a*b*(a|b)abc)#";
     public int pos=0;
     public Visitable syntaxTree;

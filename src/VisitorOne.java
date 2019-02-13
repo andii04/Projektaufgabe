@@ -119,6 +119,6 @@ public class VisitorOne implements Visitor {
 
     public VisitorOne() {
         //Initalisation of counter
-        counter = 0;
+        counter = 1;
     }
 }
