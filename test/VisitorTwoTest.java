@@ -7,8 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class VisitorTwoTest {
     Visitor visitor = new VisitorTwo();
     DepthFirstIterator iterator = new DepthFirstIterator();
-    
-    
+
     @Test
     public void testVisitorTwo() {
         //Baum aus der Vorlesung wird erstellt
