@@ -3,7 +3,7 @@ import java.util.TreeMap;
 
 public class VisitorTwo implements Visitor {
     //Attributes
-    public SortedMap<Integer, FollowposTableEntry> followposTableEntrySortedMap;
+    public final SortedMap<Integer, FollowposTableEntry> followposTableEntrySortedMap;
 
     public VisitorTwo() //Constructor
     {
@@ -17,12 +17,12 @@ public class VisitorTwo implements Visitor {
         //Insert position, position from Followpos and the Symbol in the Map
         FollowposTableEntry followposTableEntry = new FollowposTableEntry(node.position, node.symbol);
         followposTableEntrySortedMap.put(node.position, followposTableEntry);
+
+        //System.out.println(followposTableEntrySortedMap);
     }
 
     @Override
     public void visit(BinOpNode node) { //two childs
-        visit(node.left);
-        visit(node.right);
         if(node.operator == "°") // check, if its a concatenation
         {
             //iterates over all lastpos positions i from left Child
@@ -40,7 +40,6 @@ public class VisitorTwo implements Visitor {
 
     @Override
     public void visit(UnaryOpNode node) { //one Child (innerer Knoten)
-        visit(node.subNode);
         //check, if its a Kleene star or a Kleene plus
         if (node.operator.equals("*") || node.operator.equals("+"))
         {
@@ -52,26 +51,6 @@ public class VisitorTwo implements Visitor {
                     followposTableEntrySortedMap.get(lastPosition).followpos.add(firstPosition);
                 }
             }
-        }
-    }
-
-    public void visit(Visitable visitable)
-    {
-        //assign the respective method
-        if (visitable instanceof OperandNode)
-        {
-            OperandNode operandNode = (OperandNode) visitable;
-            operandNode.accept(this);
-        }
-        if (visitable instanceof BinOpNode)
-        {
-            BinOpNode binOpNode = (BinOpNode) visitable;
-            binOpNode.accept(this);
-        }
-        if (visitable instanceof UnaryOpNode)
-        {
-            UnaryOpNode unaryOpNode = (UnaryOpNode) visitable;
-            unaryOpNode.accept(this);
         }
     }
 }
