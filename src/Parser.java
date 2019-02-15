@@ -1,51 +1,53 @@
 public class Parser {
 
-    private String regEx;
+    //private String regularExpression= "((a|b)*abb)#"; Andi's Regexpr.
+    private String regularExpression= "(a*b*(a|b)abc)#";
     public int pos=0;
     public Visitable syntaxTree;
-    public void go(){
-        regEx = "(a|b)#";
-        syntaxTree= start();
-        System.out.println(syntaxTree);
+    
+    public void setRegularExpression(String regularExpression){
+        this.regularExpression = regularExpression;
+    }
+    public Visitable getTree(){
+        return syntaxTree;
     }
 
-private Visitable start(){
-    if(regEx== "#") return new OperandNode("#");
-    else if(regEx.charAt(0)=='('&& regEx.charAt(regEx.length()-1)=='#'&& regEx.charAt(regEx.length()-2)==')'){
+    public void parse(){
+        syntaxTree = start();
+    }
+    private Visitable start(){
+    if(regularExpression== "#") return new OperandNode("#");
+    else if(regularExpression.charAt(0)=='('&& regularExpression.charAt(regularExpression.length()-1)=='#'&& regularExpression.charAt(regularExpression.length()-2)==')'){
     OperandNode leaf = new OperandNode("#");
-    System.out.println("starts");
     pos++;
-    return new BinOpNode("", regExp(null), leaf);
+    return new BinOpNode("°", regExp(null), leaf);
     }
-    else {
         return null;
-    }
 }
-private Visitable regExp(Visitable p){
-    char c = regEx.charAt(pos);
+    private Visitable regExp(Visitable p){
+    char c = regularExpression.charAt(pos);
     if(c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z'|| c == '(' ){
-        pos++;
     return rE(term(null));}
 
     return null;
 }
-private Visitable rE(Visitable p){
-    char c=regEx.charAt(pos);
-    if(c==')'){return p;}
+    private Visitable rE(Visitable p){
+    char c=regularExpression.charAt(pos);
+    if(c==')'){pos++;
+        return p;}
     else if(c == '|'){
         pos ++;
             return rE(new BinOpNode("|",p,term(null)));
     }
         return null;
 }
-private Visitable term(Visitable p){
-    char c = regEx.charAt(pos);
+    private Visitable term(Visitable p){
+    char c = regularExpression.charAt(pos);
 
     if(c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z'|| c == '(' ){
-        pos++;
         if (p != null)
         {
-            return term(new BinOpNode("",
+            return term(new BinOpNode("°",
                     p, factor(null)));
         }
         else
@@ -58,39 +60,37 @@ private Visitable term(Visitable p){
     }
     return null;
 }
-private Visitable factor(Visitable p){
-    char c = regEx.charAt(pos);
+    private Visitable factor(Visitable p){
+    char c = regularExpression.charAt(pos);
     if(c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z'|| c == '(' ){
-        pos++;
         return hop(elem(null));
     }
     return null;
 }
-private Visitable hop(Visitable p){
+    private Visitable hop(Visitable p){
 
-    char c = regEx.charAt(pos);
-    if(c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z'|| c == '(' ){
+    char c = regularExpression.charAt(pos);
+    if(c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z'|| c == '('||c==')'|| c =='|' ){
         return p;
     }
-    else if(c== '*'|| c == '+' || c == '?') return new UnaryOpNode(Character.toString(c), p);
+    else if(c== '*'|| c == '+' || c == '?') { pos++; return new UnaryOpNode(Character.toString(c), p);}
     return null;
 
 }
-private Visitable elem(Visitable p){
-    char c = regEx.charAt(pos);
+    private Visitable elem(Visitable p){
+    char c = regularExpression.charAt(pos);
     if(c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z'){
-        pos++;
         return alphanum(null);
     }
-    else if(c == '(') return regExp(null);
+    else if(c == '(') {pos++; return regExp(null);}
 
     return null;
 }
-private Visitable alphanum(Visitable p){
-    char c = regEx.charAt(pos);
-    if (c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z') new OperandNode(Character.toString(c));
+    private Visitable alphanum(Visitable p){
+    char c = regularExpression.charAt(pos);
+    if (c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z') {pos++; return new OperandNode(Character.toString(c));}
     return null;
-}
-}
+}}
+
 
 
