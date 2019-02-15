@@ -1,0 +1,16 @@
+<application>
+  <component name="libraryTable">
+    <library name="junit-4.13-beta-2">
+      <CLASSES />
+      <JAVADOC />
+      <SOURCES />
+    </library>
+    <library name="junit-4.13-beta-21">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/Desktop/junit-4.13-beta-2.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+  </component>
+</application>
