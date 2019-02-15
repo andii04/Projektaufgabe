@@ -1,5 +1,5 @@
+//Andreas Wörrlein
 public class VisitorOne implements Visitor {
-
     //Declaration counter
     int counter;
 
