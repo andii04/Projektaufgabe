@@ -3,6 +3,11 @@
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+//
+// Visitor 2 from Dennis Wohlfarth
+// INF17B
+//
+
 public class VisitorTwo implements Visitor {
     //Attributes
     public final SortedMap<Integer, FollowposTableEntry> followposTableEntrySortedMap;
@@ -19,15 +24,13 @@ public class VisitorTwo implements Visitor {
         //Insert position, position from Followpos and the Symbol in the Map
         FollowposTableEntry followposTableEntry = new FollowposTableEntry(node.position, node.symbol);
         followposTableEntrySortedMap.put(node.position, followposTableEntry);
-
-        //System.out.println(followposTableEntrySortedMap);
     }
 
     @Override
     public void visit(BinOpNode node) { //two childs
         if(node.operator == "°") // check, if its a concatenation
         {
-            //iterates over all lastpos positions i from left Child
+            //iterates over all positions from Childs
             for(int lastPosition: ((SyntaxNode) node.left).lastpos)
             {
                 for (int firstPosition : ((SyntaxNode) node.right).firstpos)
@@ -45,6 +48,7 @@ public class VisitorTwo implements Visitor {
         //check, if its a Kleene star or a Kleene plus
         if (node.operator.equals("*") || node.operator.equals("+"))
         {
+            //iterates over all positions from Childs
             for(int lastPosition : node.lastpos)
             {
                 for (int firstPosition : node.firstpos)
