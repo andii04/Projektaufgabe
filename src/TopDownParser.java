@@ -5,7 +5,7 @@
 public class TopDownParser {
 
     private String regularExpression; //the expression to parse
-    public int pos=0; //position of the current char
+    private int pos=0; //position of the current char
 
     public Visitable parse(String regularExpression){
         this.regularExpression = regularExpression;
@@ -25,9 +25,9 @@ public class TopDownParser {
     //implements the given methods
     private Visitable start(){
         //Only one Node
-        if(regularExpression== "#") return new OperandNode("#");
+        if(regularExpression.equals("#")) return new OperandNode("#");
         //check the following conditions
-        //length of regular Expression hast to be >0 otherwise IndexOutOfBoundsException,
+        //length of regular Expression hast to be >0 otherwise Index out of range when  ""
         //has to start with ( and end with )#
         else if(regularExpression.length()>=1 && regularExpression.charAt(0)=='('
                 && regularExpression.charAt(regularExpression.length()-1)=='#'&& regularExpression.charAt(regularExpression.length()-2)==')'){
@@ -39,6 +39,7 @@ public class TopDownParser {
         throw new RuntimeException("Exception: This isn't a valid expression!");
     }
     private Visitable regExp(Visitable parent){
+        //In this case parameter istn't needed because always null, but is written in the requirements
         char c = regularExpression.charAt(pos);
         if(c>='0'&& c<='9'||c>='a'&& c<='z'||c>='A'&& c<='Z'|| c == '(' ){
             return re(term(null));}
