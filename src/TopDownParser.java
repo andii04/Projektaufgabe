@@ -1,4 +1,7 @@
-//Fabian Schurk
+//
+// TopDownParser from Fabian Schurk
+// INF17B
+//
 public class TopDownParser {
 
     private String regularExpression; //the expression to parse
@@ -19,6 +22,7 @@ public class TopDownParser {
         return syntaxTree;
     }
 
+    //implements the given methods
     private Visitable start(){
         //Only one Node
         if(regularExpression== "#") return new OperandNode("#");
