@@ -8,20 +8,17 @@ public class VisitorOne implements Visitor {
         //position
         node.position = counter;
 
-                //nullable
-                if(node.symbol.equals("ε"))
-                {
-                    node.nullable = true;
-                    node.firstpos.clear();
-                    node.lastpos.clear();
-                }
-                else
-                {
-                    node.nullable = false;
-                    //firstpos lastpos
-                    node.firstpos.add(counter);
-                    node.lastpos.add(counter);
-                }
+        //nullable
+        if (node.symbol.equals("ε")) {
+            node.nullable = true;
+            node.firstpos.clear();
+            node.lastpos.clear();
+        } else {
+            node.nullable = false;
+            //firstpos lastpos
+            node.firstpos.add(counter);
+            node.lastpos.add(counter);
+        }
         counter++;
     }
 
@@ -31,8 +28,7 @@ public class VisitorOne implements Visitor {
         SyntaxNode leftNode = ((SyntaxNode) node.left);
         SyntaxNode rightNode = ((SyntaxNode) node.right);
 
-        switch (node.operator)
-        {
+        switch (node.operator) {
             case "|":
                 //nullable
                 node.nullable = leftNode.nullable || rightNode.nullable;
@@ -51,19 +47,19 @@ public class VisitorOne implements Visitor {
 
                 //firstpos
 
-                if (leftNode.nullable){
+                if (leftNode.nullable) {
                     node.firstpos.addAll(leftNode.firstpos);
                     node.firstpos.addAll(rightNode.firstpos);
-                }
-
-                else{
+                } else {
                     node.firstpos.addAll(leftNode.firstpos);
                 }
 
                 //Lastpos
 
-                if(rightNode.nullable) {
+                if (rightNode.nullable) {
                     node.lastpos.addAll(leftNode.lastpos);
+                    node.lastpos.addAll(rightNode.lastpos);
+                } else {
                     node.lastpos.addAll(rightNode.lastpos);
                 }
 
@@ -80,9 +76,8 @@ public class VisitorOne implements Visitor {
     public void visit(UnaryOpNode node) {
         SyntaxNode subNode = ((SyntaxNode) node.subNode);
 
-        switch(node.operator)
-        {
-            case"*":
+        switch (node.operator) {
+            case "*":
                 //nullable
                 node.nullable = true;
                 //firstpos
@@ -91,7 +86,7 @@ public class VisitorOne implements Visitor {
                 node.lastpos.addAll(subNode.lastpos);
                 break;
 
-            case"+":
+            case "+":
                 //nullable
                 node.nullable = subNode.nullable;
                 //firstpos
@@ -100,7 +95,7 @@ public class VisitorOne implements Visitor {
                 node.lastpos.addAll(subNode.lastpos);
                 break;
 
-            case"?":
+            case "?":
                 //nullable
                 node.nullable = true;
                 //firstpos
@@ -109,7 +104,7 @@ public class VisitorOne implements Visitor {
                 node.lastpos.addAll(subNode.lastpos);
                 break;
 
-                //default case if something unexpected happens
+            //default case if something unexpected happens
             default:
                 System.out.println("some unexpected things happened: " + node.getClass().toGenericString() + " " + node.operator);
 

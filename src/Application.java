@@ -1,7 +1,7 @@
 public class Application {
     public static void main(String[] args) {
         Parser p = new Parser();
-        p.setRegularExpression("(abc)#");
+        p.setRegularExpression("((a|b)*abb)#");
         p.parse();
         Visitable visitable=p.getTree();
         DepthFirstIterator.traverse(visitable,new VisitorOne());
