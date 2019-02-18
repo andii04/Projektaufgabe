@@ -1,5 +1,8 @@
+//
+// Visitor 1 from Andreas Wörrlein
+// INF17B
+//
 public class VisitorOne implements Visitor {
-
     //Declaration counter
     int counter;
 
