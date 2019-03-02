@@ -30,6 +30,10 @@
           <option name="url" value="https://github.com/andii04/Soa_Airport.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/andii04/DPT_T51.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="C:\Users\AWOE\IdeaProjects" />
