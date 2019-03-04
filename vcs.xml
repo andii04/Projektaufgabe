@@ -38,6 +38,10 @@
           <option name="url" value="https://github.com/Syp1ng/Triebwerk_T49.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/Syp1ng/AntSwarm.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="C:\Users\AWOE\IdeaProjects" />
